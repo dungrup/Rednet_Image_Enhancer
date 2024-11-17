@@ -82,7 +82,6 @@ comp_images_dir
 ```
 
 - When training begins, the model weights will be saved every epoch. <br />
-If you want to train quickly, you should use **--use_fast_loader** option.
 
 ```bash
 python train.py --arch "REDNet30" \  # REDNet10, REDNet20, REDNet30               
@@ -99,12 +98,17 @@ python train.py --arch "REDNet30" \  # REDNet10, REDNet20, REDNet30
 
 ### Test
 
-Output results consist of image compressed with JPEG and image with artifacts reduced.
+- Feed the compressed images to the model to get the enhanced image. 
 
 ```bash
-python example --arch "REDNet30" \  # REDNet10, REDNet20, REDNet30
-               --weights_path "" \
-               --image_path "" \
-               --outputs_dir "" \
-               --jpeg_quality 10               
+python inference.py --arch "REDNet30" \  # REDNet10, REDNet20, REDNet30
+               --weights_path "" \  
+               --image_path "" \    # Folder containing compressed images
+               --outputs_dir "" \   # Folder to store the enhanced      images             
 ```
+
+- The expected --image_path is a folder with all the 200 tfrecords (h264 compressed images).
+
+- In line #52 and line #53 we enhance images only after tfrecord 50
+
+- In line #56 we enhance 5Mbps images only
